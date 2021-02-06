@@ -1,53 +1,105 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Widget titleSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Wirawat Jaiarree',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  '62130500225',
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Icon(
+            Icons.star,
+            color: Colors.red[500],
+          ),
+          Text('9999'),
+        ],
+      ),
+    );
+
+    Color color = Theme.of(context).primaryColor;
+
+    Widget buttonSection = Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildButtonColumn(color, Icons.call, 'CALL'),
+          _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
+          _buildButtonColumn(color, Icons.share, 'SHARE'),
+        ],
+      ),
+    );
+
+    Widget textSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: Text(
+        'Wirawat Jaiarree 621230500225',
+        softWrap: true,
+      ),
+    );
+
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: Text('Row and Col1'),
+      title: 'Flutter layout demo',
+      home: Scaffold(
+        appBar: AppBar(title: Text('1) Layout basic assignment')),
+        body: ListView(
+          children: [
+            Image.asset(
+              'assets/images/lake.jpg',
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,
+            ),
+            titleSection,
+            buttonSection,
+            textSection,
+          ],
+        ),
       ),
-      body: Center(
-        child: _buildImageColumn(),
-      ),
-    ));
+    );
   }
 
-  Widget _buildImageColumn() => Container(
-        decoration: BoxDecoration(color: Colors.black26),
-        child: Column(
-          children: [_buildImageRow(1), _buildImageRow(3)],
+  Column _buildButtonColumn(Color color, IconData icon, String label) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        Container(
+          margin: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
         ),
-      );
-
-  Widget _buildDecoratedImage(int imageIndex) => Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(width: 10, color: Colors.black38),
-              borderRadius: const BorderRadius.all(const Radius.circular(8))),
-          margin: const EdgeInsets.all(4),
-          child: Image.asset('assets/images/pic$imageIndex.jpg'),
-        ),
-      );
-
-  Widget _buildImageRow(int imageIndex) => Row(
-        children: [
-          _buildDecoratedImage(imageIndex),
-          _buildDecoratedImage(imageIndex + 1)
-        ],
-      );
+      ],
+    );
+  }
 }
-
-// Widget buildRow() => Row(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         Image.asset('assets/images/pic1.jpg'),
-//         Image.asset('assets/images/pic2.jpg'),
-//         Image.asset('assets/images/pic3.jpg'),
-//       ],
-//     );
